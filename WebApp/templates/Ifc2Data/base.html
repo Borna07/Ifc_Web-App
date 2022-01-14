@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Ifc2Data</title>
+        {% load static %}
+
+        <link rel="stylesheet" type="text/css"  href="{% static 'css/style123.css' %}">  
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+     
+    </head>
+
+    <body id = "override">
+        <table class="wrapper">
+            <tr>
+                <td>
+                    <div class="container" id="out">
+                        <div class = "jumbotron">
+                            {% block content %}
+                            {% endblock content %}
+                        </div>
+                    </div>
+                </td>
+            </tr>
+      </table>
+    </body>
+</html>
+
+<table class="wrapper">
+    <tr>
+        <td>
+            <div class="content">
+            </div>
+        </td>
+    </tr>
+</table>
