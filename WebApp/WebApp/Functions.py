@@ -1,9 +1,7 @@
 import ifcopenshell as ifc
-# import plotly.express as px
 import pandas as pd
 from ifcopenshell.util.element import get_psets 
 import pandas as pd
-import ifcopenshell as ifc
 
 
 
