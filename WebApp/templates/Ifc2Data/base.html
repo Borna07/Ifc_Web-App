@@ -1,28 +1,43 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>Ifc2Data</title>
-        {% load static %}
 
-        <link rel="stylesheet" type="text/css"  href="{% static 'css/style123.css' %}">  
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-     
-    </head>
+<head>
+    <title>Ifc2Data</title>
+    {% load static %}
 
-    <body id = "override">
-        <table class="wrapper">
-            <tr>
-                <td>
-                    <div class="container" id="out">
-                        <div class = "jumbotron">
-                            {% block content %}
-                            {% endblock content %}
-                        </div>
-                    </div>
-                </td>
-            </tr>
-      </table>
-    </body>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style123.css' %}">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+        integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@700&display=swap" rel="stylesheet">
+
+</head>
+
+<body id="override">
+    <header>
+        <div class="logo">
+            IFC2Data
+        </div>
+        <div class="menu">
+            <a>Contact me</a>
+        </div>
+
+    </header>
+    <div id="out">
+        <div id='stars'></div>
+        <div id='stars2'></div>
+        <div id='stars3'></div>
+        <div class="page-wrapper">
+            {% block content %}
+            {% endblock content %}
+        </div>
+    </div>
+</body>
+
 </html>
 
 <table class="wrapper">
