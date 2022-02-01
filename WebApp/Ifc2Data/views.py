@@ -11,6 +11,8 @@ from WebApp.settings import MEDIA_ROOT
 
 from WebApp.Functions import all_divide, parser_api, unique, unique_csv, unique_divide, project_information
 
+from .tasks import project_information_task
+
 DOCU_DIR = Path(MEDIA_ROOT) / 'documents'
 
 
@@ -37,17 +39,7 @@ def model_upload(request):
                 #get the path to saved model
                 MODEL_DIR = Path(MEDIA_ROOT) / myfile.name        
                 
-                #retrive project information from the model and save them to the object
-                info = project_information(MODEL_DIR)
-                last_model.organization = info["organization"]
-                last_model.author = info["author"]
-                last_model.project_name = info["project_name"]
-                last_model.given_name = info["Name"]
-                last_model.description = info["Description"]
-                last_model.time_stamp = info["time_stamp"]
-                last_model.schema_identifiers = info["schema_identifiers"]
-                last_model.software = info["software"]
-                last_model.save()
+                project_information(MODEL_DIR, last_model)
 
                 #save the object id in the session
                 request.session['selected_project_id'] = selected_project_id
@@ -87,7 +79,6 @@ def model_download(request):
         if selected == "all":
             if file_format == "xlsx":
                 XLS_DIR = Path(DOCU_DIR) / (xlsx_name + '_ALL.xlsx')  
-                print(XLS_DIR)
                 # saving the converted ifc file to documents
                 model.to_excel(XLS_DIR)                                
                 response = FileResponse(open(XLS_DIR, 'rb'))

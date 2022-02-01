@@ -161,23 +161,58 @@ def unique_divide(df, path):
             worterbuch[i].to_excel(writer, sheet_name=i)
 
 
-def project_information(contents):
+
+
+
+def project_information(contents, last_model):
     ifc_file = ifc.open(contents)
     project = ifc_file.by_type("IfcProject")[0]
     application = ifc_file.by_type("IfcApplication")[0][2]
     info = project.get_info()
     project_info = {}
-    #infos = ["Name", "Description","LongName","Phase"]
     infos = ["Name", "Description"]
     
     for inf in infos:
         project_info[inf] = info[inf]
     wrapper = ifc_file.wrapped_data.header
-    project_info.update({"organization": wrapper.file_name.organization[0]})
-    project_info.update({"author": wrapper.file_name.author[0]})
-    project_info.update({"time_stamp": wrapper.file_name.time_stamp})
-    project_info.update({"project_name": wrapper.file_name.name})
-    project_info.update({"schema_identifiers": wrapper.file_schema.schema_identifiers[0]})
-    project_info.update({"software": application})
-    return project_info    
+
+
+    #TODO if no infromation then write "No Info"
+    last_model.organization = wrapper.file_name.organization[0]
+    last_model.author =  wrapper.file_name.author[0]
+    last_model.project_name = wrapper.file_name.name
+    last_model.given_name = info["Name"]
+    last_model.description = info["Description"]
+    last_model.time_stamp = wrapper.file_name.time_stamp
+    last_model.schema_identifiers = wrapper.file_schema.schema_identifiers[0]
+    last_model.software = application
+
+
+    last_model.save()
+
+
+    return last_model   
+
+
+
+
+# def project_information(contents):
+#     ifc_file = ifc.open(contents)
+#     project = ifc_file.by_type("IfcProject")[0]
+#     application = ifc_file.by_type("IfcApplication")[0][2]
+#     info = project.get_info()
+#     project_info = {}
+#     #infos = ["Name", "Description","LongName","Phase"]
+#     infos = ["Name", "Description"]
+    
+#     for inf in infos:
+#         project_info[inf] = info[inf]
+#     wrapper = ifc_file.wrapped_data.header
+#     project_info.update({"organization": wrapper.file_name.organization[0]})
+#     project_info.update({"author": wrapper.file_name.author[0]})
+#     project_info.update({"time_stamp": wrapper.file_name.time_stamp})
+#     project_info.update({"project_name": wrapper.file_name.name})
+#     project_info.update({"schema_identifiers": wrapper.file_schema.schema_identifiers[0]})
+#     project_info.update({"software": application})
+#     return project_info    
 
