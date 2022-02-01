@@ -31,15 +31,13 @@ def model_upload(request):
                 form.save(commit=True)
 
                 #get the session id
-                selected_project_id = Document.objects.latest("uploaded_at").id
+                selected_project_id = Document.objects.latest("uploaded_at").id    
 
-                #get the session uploaded model
-                last_model = Document.objects.get(id = selected_project_id)
+                #insted get the file name
+                file_name = myfile.name  
 
-                #get the path to saved model
-                MODEL_DIR = Path(MEDIA_ROOT) / myfile.name        
-                
-                project_information(MODEL_DIR, last_model)
+                #celery implementation
+                project_information_task.delay(file_name, selected_project_id)
 
                 #save the object id in the session
                 request.session['selected_project_id'] = selected_project_id
