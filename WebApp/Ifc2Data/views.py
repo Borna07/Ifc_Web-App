@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from pathlib import Path
+import pandas as pd
 
 # Create your views here.
 from django.http import HttpResponse
@@ -8,7 +9,7 @@ from Ifc2Data.forms import DownloadForm, DocumentForm
 from django.http import FileResponse
 from Ifc2Data.models import Document
 from WebApp.settings import MEDIA_ROOT
-
+from celery.result import AsyncResult
 from WebApp.Functions import all_divide, parser_api, unique, unique_csv, unique_divide, project_information
 
 from .tasks import project_information_task
@@ -32,22 +33,37 @@ def model_upload(request):
 
                 #get the session id
                 selected_project_id = Document.objects.latest("uploaded_at").id    
+                
+                #WO CELERY
+                # file_name = myfile.name  
 
+                # contents = Path(MEDIA_ROOT) / file_name
+                # last_model = Document.objects.get(id = selected_project_id)
+
+
+                # project_information(contents, last_model)
+
+                #CELERY IMPLEMENTATION
                 #insted get the file name
+
                 file_name = myfile.name  
 
-                #celery implementation
-                project_information_task.delay(file_name, selected_project_id)
+
+                task = project_information_task.delay(file_name, selected_project_id)
 
                 #save the object id in the session
                 request.session['selected_project_id'] = selected_project_id
+                request.session['task_id'] = task.task_id
+                #request.session['task_id'] = task.id
 
+                print(task.task_id)
+                # return redirect('model_download')
+                return render(request, 'Ifc2Data/upload.html', {'task_id' : task.task_id})
 
-                return redirect('model_download')
     else:
         form = DocumentForm()
     return render(request, 'Ifc2Data/upload.html', {
-        'form': form
+        'form': form, 
     })
 
 
@@ -60,6 +76,13 @@ def model_download(request):
     selected_project_id = request.session.get('selected_project_id')
     last_model = Document.objects.get(id = selected_project_id)
 
+    #Retrive celery task result
+    task_id = request.session.get('task_id')
+
+    result = AsyncResult(id=task_id)
+    all_elements_data = result.get() # 4
+    model = pd.DataFrame(all_elements_data)
+
     if form.is_valid():
         #get the radio button values
         selected = form.cleaned_data.get("file_download")     
@@ -67,11 +90,16 @@ def model_download(request):
         
 
         last_model_name = last_model.document.name
+
+
         # path to last uploaded document
-        MODEL_DIR = Path(MEDIA_ROOT) / last_model_name              
+        # MODEL_DIR = Path(MEDIA_ROOT) / last_model_name              
         # parsing the ifc file and converting to dataframe
-        model = parser_api(MODEL_DIR)      
+
+        #model = parser_api(MODEL_DIR)     
+        #  
         # get the name of last uploaded document without the suffix                           
+
         xlsx_name = Path(last_model_name).stem                                  
 
         if selected == "all":

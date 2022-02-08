@@ -1,6 +1,8 @@
 {% extends 'Ifc2Data/base.html' %}
 
 {% block content %}
+{% load static %}
+
   <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
     {{ form.as_p }}
@@ -8,4 +10,50 @@
   </form>
 
   <p><a href="{% url 'index' %}">Return to home</a></p>
+
+
+  <div class='progress-wrapper'>
+    <div id='progress-bar' class='progress-bar' style="background-color: #68a9ef; width: 0%;">&nbsp;</div>
+  </div>
+  <div id="progress-bar-message">Waiting for progress to start...</div>
+  <script src="{% static 'js/celery_progress.js' %}"></script>
+
+  {% if task_id %}
+
+  <!-- JQuery -->
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+  <!-- Bootstrap JS -->
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+  <!-- Celery Progress -->
+  <script src="{% static 'celery_progress/celery_progress.js' %}"></script>
+
+  <script type="text/javascript">
+    function processProgress(progressBarElement, progressBarMessageElement, progress) {
+        progressBarElement.style.width = progress.percent + "%";
+        var description = progress.description || "Starting download";
+        progressBarMessageElement.innerHTML = description;
+      }
+  
+    function processResult(resultElement, result) {
+      if (result.includes("successful")) {
+        $( resultElement ).append(
+          $('<br>')
+        );
+        $( resultElement ).append(
+          $('<p class="text-center">').text(result)
+        );
+      }
+    }
+  
+    // Progress Bar (JQuery)
+    $(function () {
+      var progressUrl = "{% url 'celery_progress:task_status' task_id %}";
+      CeleryProgressBar.initProgressBar(progressUrl, {
+        onProgress: processProgress,
+      })
+    });
+  </script>
+  {% endif %}
+
+
 {% endblock %}

@@ -1,7 +1,6 @@
 import ifcopenshell as ifc
 import pandas as pd
 from ifcopenshell.util.element import get_psets 
-import pandas as pd
 
 
 
