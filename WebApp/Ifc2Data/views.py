@@ -51,7 +51,6 @@ def model_upload(request):
 
                 #save the object id in the session
                 request.session['selected_project_id'] = selected_project_id
-                print(selected_project_id)
 
 
                 return redirect('model_download')

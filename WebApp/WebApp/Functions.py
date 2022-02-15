@@ -50,16 +50,18 @@ def parser_api(path):
                 element_data.update({"Type_Name": "No RelatingType"})
 
         #Get all the psets key:value pairs, ignore pset group
-        psets = get_psets(element)
-        for key in psets.keys():
-            element_data.update(psets[key])
-        
+        try:
+            psets = get_psets(element)
+            for key in psets.keys():
+                element_data.update(psets[key])
+        except:
+            pass    
         #Add project name to element info
         element_data.update({"Project": project})
 
         #Get element storey
         try:
-            structure = ifc_file[element.id].ContainedInStructure
+            structure = ifc_file[element.id()].ContainedInStructure
             storey = structure[0].RelatingStructure.Name
             element_data.update({"Storey": storey})
         except: 
@@ -77,10 +79,13 @@ def parser_api(path):
         space_data.update({"IfcType": space.is_a()})
 
         #Get all the psets key:value pairs, ignore pset group
-        psets = get_psets(space)
-        for key in psets.keys():
-            space_data.update(psets[key])
-        
+        try:
+            psets = get_psets(space)
+            for key in psets.keys():
+                space_data.update(psets[key])
+        except:
+            pass
+
         #Add project name to element info
         space_data.update({"Project": project})
 
