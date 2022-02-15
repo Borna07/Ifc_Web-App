@@ -1,11 +1,18 @@
 {% extends 'Ifc2Data/base.html' %}
 
 {% block content %}
-  <form method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Upload</button>
-  </form>
+<div class="container-main">
+  <div class="content-block">
+    <form method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <div class="button-block">
 
-  <p><a href="{% url 'index' %}">Return to home</a></p>
+        <button class="button-primary submit-button" type="submit">Upload</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- <p><a href="{% url 'index' %}">Return to home</a></p> -->
 {% endblock %}

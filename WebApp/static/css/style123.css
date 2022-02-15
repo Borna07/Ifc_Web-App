@@ -43,9 +43,11 @@ a {
 
 .container-main {
   height: 100vh;
-  max-width: 1240px;
+  /* max-width: 1240px; */
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 header {
@@ -72,6 +74,51 @@ header div {
   font-size: 32px;
   color: #fff;
   font-family: 'Roboto Condensed', sans-serif !important;
+
+}
+
+input[type="file"] {
+  display: none;
+}
+
+#id_document {
+  display: block;
+  box-sizing: border-box;
+  margin: 0 auto;
+  padding: 8px;
+  width: 80%;
+  /* max-width: 200px; */
+  background: #fff;
+  /* fallback color for old browsers */
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: 8px;
+  color: #fff;
+  text-align: center;
+  text-decoration: none;
+  letter-spacing: 1px;
+  transition: all 0.3s ease-out;
+}
+
+.semi-transparent-button:hover,
+.semi-transparent-button:focus,
+.semi-transparent-button:active {
+  background: #fff;
+  color: #000;
+  transition: all 0.5s ease-in;
+}
+
+.semi-transparent:focus {
+  outline: none;
+}
+
+
+.logo a {
+  text-decoration: none;
+  color: white;
+}
+
+.logo a:hover {
+  color: white;
 }
 
 .menu {
@@ -176,14 +223,16 @@ header div {
   line-height: 1.1;
 }
 
-/* .button-block {
-  max-width: 1240px;
+.button-block {
   display: flex;
-  flex-direction: column;
-} */
+  justify-content: center;
+}
 
 .content-block {
   padding: 10%;
+  background: rgba(255, 255, 255, 0.3);
+  max-width: 900px;
+  border-radius: 50px;
 }
 
 
@@ -293,9 +342,7 @@ body {
   }
 }
 
-.upload-form {
-  
-}
+.upload-form {}
 
 .input-file {
   border: 3px dashed white;
