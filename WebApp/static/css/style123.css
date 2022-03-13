@@ -347,3 +347,21 @@ body {
 .input-file {
   border: 3px dashed white;
 }
+
+
+.menu-link {
+  margin-left: 4px;
+  margin-right: 4px;
+  color: #71faed;
+  width: 50px;
+  height: auto;
+}
+
+.download-title {
+  color: white;
+  text-align: center;
+}
+
+.container-download {
+  display: flex;
+}
