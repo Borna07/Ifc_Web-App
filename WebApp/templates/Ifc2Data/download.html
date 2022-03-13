@@ -4,8 +4,10 @@
 
 <h1 class="download-title">Project information</h1>
 
-<div class="container-main">
-  <div class="container-download">
+  <div class="container-main">
+    <div class="container-download content-block download">
+
+      <div>
 
     <p>Name : {{ifc.given_name}}</p>
 
@@ -22,20 +24,23 @@
     <p>Authoring Software : {{ifc.software}}</p>
 
 
-
+  </div>
+  <div>
 
 
     <form action="" name="" method="POST">
       {% csrf_token %}
       {{ form.as_p }}
-      <input type="submit" value="Download">
+      <input class="submit-button button-download" type="submit" value="Download">
     </form>
 
-
+  </div>
+</div>
+</div>
     <script src="{% static 'js/radio.js' %}"></script>
 
 
-    <p><a href="{% url 'index' %}">Return to home</a></p>
-  </div>
-</div>
+    <p><a class="return-download" href="{% url 'index' %}">Return to home</a></p>
+
+
 {% endblock %}

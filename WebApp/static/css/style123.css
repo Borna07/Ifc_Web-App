@@ -42,7 +42,7 @@ a {
 /* style sheet angela */
 
 .container-main {
-  height: 100vh;
+margin-top: 10%;
   /* max-width: 1240px; */
   display: flex;
   flex-direction: column;
@@ -165,7 +165,6 @@ input[type="file"] {
 .button-primary {
   display: inline-block;
   padding: 10px 20px;
-  margin: 0 10px 0 0;
   font: 700 22px 'Lato', sans-serif !important;
   color: #fff;
   border: none;
@@ -351,9 +350,9 @@ body {
 
 .menu-link {
   margin-left: 4px;
-  margin-right: 4px;
+  margin-right: 12px;
   color: #71faed;
-  width: 50px;
+  width: 30px;
   height: auto;
 }
 
@@ -364,4 +363,29 @@ body {
 
 .container-download {
   display: flex;
+}
+
+.upload-form{
+  text-align: center;
+}
+
+.upload-form p{
+  color: white;
+  font-weight: normal;
+}
+
+.return-download{
+  color: white;
+  padding-top: 24px;
+  text-align: center;
+}
+
+.download{
+  color: white;
+  margin:auto;
+}
+
+.button-download{
+  position: absolute;
+  left:41%;
 }
