@@ -2,35 +2,40 @@
 {% block content %}
 {% load static %}
 
-<h1>Project information</h1>
+<h1 class="download-title">Project information</h1>
 
-<p>Name : {{ifc.given_name}}</p>
+<div class="container-main">
+  <div class="container-download">
 
-<p>Organization : {{ifc.organization}}</p>
+    <p>Name : {{ifc.given_name}}</p>
 
-<p>Author : {{ifc.author}}</p>
-<p>Project Name : {{ifc.project_name}}</p>
+    <p>Organization : {{ifc.organization}}</p>
 
-<p>Created : {{ifc.time_stamp}}</p>
+    <p>Author : {{ifc.author}}</p>
+    <p>Project Name : {{ifc.project_name}}</p>
 
-<p>IFC Schema Version : {{ifc.schema_identifiers}}</p>
+    <p>Created : {{ifc.time_stamp}}</p>
 
-
-<p>Authoring Software : {{ifc.software}}</p>
-
-
+    <p>IFC Schema Version : {{ifc.schema_identifiers}}</p>
 
 
-
-<form action="" name="" method="POST">
-  {% csrf_token %}
-  {{ form.as_p }}
-  <input type="submit" value="Download">
- </form>
+    <p>Authoring Software : {{ifc.software}}</p>
 
 
-<script src="{% static 'js/radio.js' %}"></script>
 
 
-  <p><a href="{% url 'index' %}">Return to home</a></p>
+
+    <form action="" name="" method="POST">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <input type="submit" value="Download">
+    </form>
+
+
+    <script src="{% static 'js/radio.js' %}"></script>
+
+
+    <p><a href="{% url 'index' %}">Return to home</a></p>
+  </div>
+</div>
 {% endblock %}
